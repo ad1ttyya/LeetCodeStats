@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeetCode Stats for 4 Users</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .user-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .stats div {
+            text-align: center;
+            padding: 10px;
+        }
+        #calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+        }
+        .day {
+            width: 20px;
+            height: 20px;
+            background-color: #ebedf0;
+            border-radius: 3px;
+        }
+        .day[data-submissions="1"] { background-color: #c6e48b; }
+        .day[data-submissions="2"] { background-color: #7bc96f; }
+        .day[data-submissions="3"] { background-color: #239a3b; }
+        .day[data-submissions="4"] { background-color: #196127; }
+    </style>
+</head>
+<body>
+    <!-- Container for each user -->
+    <div id="user-1" class="container">
+        <div>
+            <h1>
+                <center>
+                Aditya
+                </center>
+            </h1>
+        </div>
+        <div class="user-info">
+            <h2 id="username-1">LeetCode User 1</h2>
+            <p id="ranking-1">Ranking: N/A</p>
+        </div>
+        <div class="stats">
+            <div>
+                <h3 id="totalSolved-1">0</h3>
+                <p>Total Solved</p>
+            </div>
+            <div>
+                <h3 id="easySolved-1">0</h3>
+                <p>Easy Solved</p>
+            </div>
+            <div>
+                <h3 id="mediumSolved-1">0</h3>
+                <p>Medium Solved</p>
+            </div>
+            <div>
+                <h3 id="hardSolved-1">0</h3>
+                <p>Hard Solved</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="user-2" class="container">
+
+        <div>
+            <h1>
+                <center>
+                Anshoomaan
+                </center>
+            </h1>
+        </div>
+
+        <div class="user-info">
+            <h2 id="username-2">LeetCode User 2</h2>
+            <p id="ranking-2">Ranking: N/A</p>
+        </div>
+        <div class="stats">
+            <div>
+                <h3 id="totalSolved-2">0</h3>
+                <p>Total Solved</p>
+            </div>
+            <div>
+                <h3 id="easySolved-2">0</h3>
+                <p>Easy Solved</p>
+            </div>
+            <div>
+                <h3 id="mediumSolved-2">0</h3>
+                <p>Medium Solved</p>
+            </div>
+            <div>
+                <h3 id="hardSolved-2">0</h3>
+                <p>Hard Solved</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="user-3" class="container">
+        <div>
+            <h1>
+                <center>
+                Luv
+                </center>
+            </h1>
+        </div>
+        <div class="user-info">
+            <h2 id="username-3">LeetCode User 3</h2>
+            <p id="ranking-3">Ranking: N/A</p>
+        </div>
+        <div class="stats">
+            <div>
+                <h3 id="totalSolved-3">0</h3>
+                <p>Total Solved</p>
+            </div>
+            <div>
+                <h3 id="easySolved-3">0</h3>
+                <p>Easy Solved</p>
+            </div>
+            <div>
+                <h3 id="mediumSolved-3">0</h3>
+                <p>Medium Solved</p>
+            </div>
+            <div>
+                <h3 id="hardSolved-3">0</h3>
+                <p>Hard Solved</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="user-4" class="container">
+        <div>
+            <h1>
+                <center>
+                Dev
+                </center>
+            </h1>
+        </div>
+        <div class="user-info">
+            <h2 id="username-4">LeetCode User 4</h2>
+            <p id="ranking-4">Ranking: N/A</p>
+        </div>
+        <div class="stats">
+            <div>
+                <h3 id="totalSolved-4">0</h3>
+                <p>Total Solved</p>
+            </div>
+            <div>
+                <h3 id="easySolved-4">0</h3>
+                <p>Easy Solved</p>
+            </div>
+            <div>
+                <h3 id="mediumSolved-4">0</h3>
+                <p>Medium Solved</p>
+            </div>
+            <div>
+                <h3 id="hardSolved-4">0</h3>
+                <p>Hard Solved</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // List of LeetCode usernames
+        const usernames = ["ad1ttya", "MACM007", "luvp_7", "purohitdev37"]; // Replace with the desired usernames
+
+        usernames.forEach((username, index) => {
+            fetch(`https://leetcode-stats-api.herokuapp.com/${username}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Update user stats
+                    document.getElementById(`username-${index + 1}`).textContent = data.username;
+                    document.getElementById(`ranking-${index + 1}`).textContent = `Ranking: ${data.ranking}`;
+                    document.getElementById(`totalSolved-${index + 1}`).textContent = data.totalSolved;
+                    document.getElementById(`easySolved-${index + 1}`).textContent = data.easySolved;
+                    document.getElementById(`mediumSolved-${index + 1}`).textContent = data.mediumSolved;
+                    document.getElementById(`hardSolved-${index + 1}`).textContent = data.hardSolved;
+                })
+                .catch(error => {
+                    console.error(`Error fetching LeetCode stats for ${username}:`, error);
+                });
+        });
+    </script>
+</body>
+</html>
